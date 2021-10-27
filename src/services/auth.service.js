@@ -10,7 +10,7 @@ const authService= {
             expiresIn: 60 * 60 * 24 * 365
         })
     },
-    login: async (data)=>{
+    login: async function(data){
         try {
             const {email, password} = data
             let userExists = await User.findOne({email:email}, 'name email password').exec()
@@ -27,7 +27,7 @@ const authService= {
             return error
         }
     },
-    register: async (userData)=>{
+    register: async function(userData){
         try {
             let hash = await bcrypt.hash(userData.password, 10).then(res=>res)
             userData.password = hash
