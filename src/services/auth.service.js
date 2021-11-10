@@ -1,22 +1,21 @@
 const jwt = require('jsonwebtoken')
 const User = require('../models/user')
 const bcrypt = require('bcrypt')
-const messages = require('../helpers/messages')
 const msg = require('../helpers/messages')
 
-const authService= {
-    singToken: async (id)=>{
-        return jwt.sing({id}, process.env.JWT_SECRET, {
+const authService = {
+    signToken: async function(_id){
+        return jwt.sign({ _id }, process.env.JWT_SECRET, {
             expiresIn: 60 * 60 * 24 * 365
         })
     },
     login: async function(data){
         try {
-            const {email, password} = data
+            const { email, password } = data
             let userExists = await User.findOne({email:email}, 'name email password').exec()
             if(await bcrypt.compare(password, userExists.password).then(res=>res)){
-                const token = await this.singToken(userExists.id)
-                return{
+                const token = await this.signToken(userExists.id)
+                return {
                     code: 200,
                     token
                 }
@@ -29,12 +28,13 @@ const authService= {
     },
     register: async function(userData){
         try {
-            let hash = await bcrypt.hash(userData.password, 10).then(res=>res)
+            let hash = await bcrypt.hash(userData.password, 10).then(res => res)
             userData.password = hash
             await userData.save()
-            let token = await this.singToken(userData._id)
-            return{
-                code:200,
+            let token = await this.signToken(userData._id)
+            return {
+                userData,
+                code: 200,
                 token
             }
         } catch (error) {
