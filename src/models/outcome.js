@@ -2,15 +2,14 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const Outcome = new Schema({
-    user:{
+    user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:'User'
+        ref: 'User'
     },
     value: Number,
-    CreateAt: {
+    createdAt: {
         type: Date,
         default: Date.now
-    
     }
 })
 

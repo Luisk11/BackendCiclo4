@@ -3,14 +3,13 @@ const router = express.Router()
 const authController = require('../controllers/auth.controller')
 const { check } = require('express-validator')
 
-
 /**
  * @api {get} /profile Perfil del usuario
  * @apiName Perfil 
  * @apiDescription Perfil del usuario logueado
  * @apiGroup Data
  */
- router.get('/profile', authController.profile)
+router.get('/profile', authController.profile)
 
 
 /**
@@ -82,42 +81,40 @@ const { check } = require('express-validator')
  *           "message": "user validation failed: email: Path `email` is required."
  *       }
  *   }
- * @apiError (422) (Data Error) Error en la Validación de los datos
+ * @apiError (422) (Data Error) error en la validación de los datos
  * @apiErrorExample {json} Data-Error-Example
- * HTTP/1.1 422 Unprocessable Entry
- * {
+ * HTTP/1.1 422 unprocessable entry
+ *  {
  *       "errors": [
  *           {
  *               "value": "m",
- *               "msg": "Nombre muy corto, minimo 2 caracteres",
+ *               "msg": "Nombre no valido, minimo 2 caracteres, maximo 40 caracteres",
  *               "param": "name",
  *               "location": "body"
  *           },
  *           {
- *               "value": "email",
- *               "msg": "El email no es válido",
+ *               "value": "ema",
+ *               "msg": "Email no valido",
  *               "param": "email",
  *               "location": "body"
  *           },
  *           {
- *               "value": "passw",
+ *               "value": "df",
  *               "msg": "Contraseña debil",
  *               "param": "password",
  *               "location": "body"
  *           }
  *       ]
  *   }
- *  
- * 
  */
-router.post('/register', [
-        check('name', 'Nombre no válido, minimo 2 caracteres, máximo 40 caracteres').isLength({min: 2, max: 40}),
-        check('email', 'El email no es válido').isEmail(),
+router.post('/register',[
+        check('name', 'Nombre no valido, minimo 2 caracteres, maximo 40 caracteres').isLength({min: 2, max: 40}),
+        check('email', 'Email no valido').isEmail(),
         check('password', 'Contraseña debil').isStrongPassword()
     ],
-    //Va la funcion
     authController.register
-   )
+)
+
 
 /**
  * @api {post} /login Ingreso de usuarios
@@ -126,9 +123,8 @@ router.post('/register', [
  * @apiDescription ingreso de usuarios a la plataforma usando email y password 
  * @apiParam {string} email E-mail del usuario que ingrea
  * @apiParam {string} password Contraseña del usuario
- * @apiSampleRequest https://mintic-11.herokuapp.com/auth/login
+ * @apiSampleRequest https://mintic-18.herokuapp.com/auth/login
  */
-
 router.post('/login', authController.login)
 
 module.exports = router

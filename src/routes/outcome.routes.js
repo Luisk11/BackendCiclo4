@@ -1,5 +1,5 @@
 const express = require('express')
-const outcomeController = require('../controllers/outcome.controller.js')
+const outcomeController = require('../controllers/outcome.controller')
 const router = express.Router()
 const Auth = require('../middlewares/authentication')
 

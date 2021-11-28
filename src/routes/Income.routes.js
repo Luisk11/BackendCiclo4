@@ -10,7 +10,7 @@ const Auth = require('../middlewares/authentication')
  * @apiGroup
  */
 router.post('/', Auth, incomeController.add)
-router.get('/', Auth, incomeController.list)
+router.get('/', Auth,  incomeController.list)
 router.get('/:id', incomeController.find)
 
 module.exports = router

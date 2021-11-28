@@ -11,10 +11,8 @@ const Income = new Schema({
         min: 5000,
         max: 1500000
     },
-    description: {
-        type: String
-    },
-    createAt:{
+    description: String,
+    createdAt: {
         type: Date,
         default: Date.now
     }
@@ -22,7 +20,7 @@ const Income = new Schema({
 
 Income.pre('save', function(next){
     if(this.value <= 50000){
-        this.value -= 1000
+        this.value -= 1000 
     }
     next()
 })
